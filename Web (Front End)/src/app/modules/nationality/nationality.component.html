@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-12">
+          <div class="col-md-6">
+        <h3 color="primary" class="mat-title font-weight-bold text-center">
+            Create Nationality</h3>
+        <hr>
+            <mat-form-field class="example-full-width">
+                <input required type="text" required matInput placeholder="Nationality name" [(ngModel)]="nation.NationalityName" #NationalityName ="ngModel">
+            </mat-form-field>
+
+            <div *ngIf="NationalityName.invalid && (NationalityName.dirty || NationalityName.touched)"
+            class="alert alert-danger">
+            Nationality Name is required.
+           </div>
+            <br>
+            <button [disabled]="!NationalityName.valid"  mat-raised-button color="primary" (click)="saveData()"> Create nationality</button>&nbsp;
+   
+            <div class="updating"*ngIf="editing==true">
+              <h3 color="primary" class="mat-title font-weight-bold text-center">
+                Update Nationality</h3>
+            <hr> 
+                <mat-form-field class="example-full-width">
+                    <input required type="text" required matInput name="NationalityName" [(ngModel)]="Enation.nationalityName" [value] ='Enation.nationalityName'>
+                </mat-form-field>
+                <br>
+                <button  mat-raised-button color="primary" (click)="UpdateNationality(Enation)"> Update Nationality</button>&nbsp;
+                <button  mat-raised-button color="warn" (click)="cancelEditing()"> Cancel updating</button>&nbsp;
+            </div>
+          </div>
+<div class="col-md-6">
+    <h3 color="primary" class="mat-title font-weight-bold text-center">
+     Nationality List</h3>
+    <hr>
+
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
+      
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+      
+          <!-- Progress Column -->
+          <ng-container matColumnDef="NationalityName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nationality Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.nationalityName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Edit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+            <td mat-cell *matCellDef="let row"> <button color="accent" mat-raised-button (click)="editingNationality(row)">Edit</button> </td>
+          </ng-container>
+          <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+            <td mat-cell *matCellDef="let row"><button color="warn" mat-raised-button (click)="deleteNationality(row.nationalityId)">Delete</button>  </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+      
+</div>
+    </div>
+</div>

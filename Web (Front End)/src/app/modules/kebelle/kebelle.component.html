@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-12">
+          <div class="col-md-6">
+        <h3 color="primary" class="mat-title font-weight-bold text-center">
+            Create Kebelle</h3>
+        <hr>
+            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Woreda Name</mat-label>
+            <mat-select [(ngModel)]="kebelle.WoredaId" #WoredaId ="ngModel">
+                <mat-option *ngFor="let woreda of WoredaList" [value]="woreda.woredaId">
+                {{woreda.woredaName}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input required type="text" required matInput placeholder="Kebelle name" [(ngModel)]="kebelle.KebelleName" #KebelleName ="ngModel">
+            </mat-form-field>
+
+            <div *ngIf="WoredaId.invalid && (WoredaId.dirty || WoredaId.touched)"
+            class="alert alert-danger">
+            Woreda name is required.
+           </div>
+            <div *ngIf="KebelleName.invalid && (KebelleName.dirty || KebelleName.touched)"
+            class="alert alert-danger">
+            Kebelle name is required.
+           </div>
+            <br>
+            <button [disabled]="!KebelleName.valid"  mat-raised-button color="primary" (click)="saveData()"> Create Kebelle</button>&nbsp;
+            <div class="updating"*ngIf="editing==true">
+              <h3 color="primary" class="mat-title font-weight-bold text-center">
+                Update kebelle</h3>
+            <hr> 
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Woreda Name</mat-label>
+                <mat-select [(ngModel)]="EKebelle.woredaId" #WoredaId ="ngModel">
+                    <mat-option *ngFor="let woreda of WoredaList" [value]="woreda.woredaId">
+                    {{woreda.woredaName}}
+                    </mat-option>
+                </mat-select>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input required type="text" required matInput name="WoredaName" [(ngModel)]="EKebelle.kebelleName" [value] ='EKebelle.kebelleName'>
+                </mat-form-field>
+                <br>
+                <button  mat-raised-button color="primary" (click)="updateKebelle(EKebelle)"> Update kebelle</button>&nbsp;
+                <button  mat-raised-button color="warn" (click)="cancelEditing()"> Cancel updating</button>&nbsp;
+            </div>
+          </div>
+<div class="col-md-6">
+    <h3 color="primary" class="mat-title font-weight-bold text-center">
+     Kebelle List</h3>
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
+      
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <!-- Progress Column -->
+          <ng-container matColumnDef="WoredaId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Woreda Id </th>
+            <td mat-cell *matCellDef="let row"> {{row.woredaId}} </td>
+          </ng-container>
+          <ng-container matColumnDef="KebelleName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Kebelle Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.kebelleName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Edit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+            <td mat-cell *matCellDef="let row"> <button color="accent" mat-raised-button (click)="editingKebelle(row)">Edit</button> </td>
+          </ng-container>
+          <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+            <td mat-cell *matCellDef="let row"><button color="warn" mat-raised-button (click)="deleteKebelle(row.kebelleId)">Delete</button>  </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+      
+</div>
+    </div>
+</div>

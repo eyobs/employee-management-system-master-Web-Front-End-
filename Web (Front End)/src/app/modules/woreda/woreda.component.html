@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-12">
+          <div class="col-md-6">
+        <h3 color="primary" class="mat-title font-weight-bold text-center">
+            Create Woreda</h3>
+        <hr>
+            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Zone Name</mat-label>
+            <mat-select [(ngModel)]="woreda.ZoneId" #ZoneId ="ngModel">
+                <mat-option *ngFor="let zone of ZoneList" [value]="zone.zoneId">
+                {{zone.zoneName}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input required type="text" required matInput placeholder="Woreda name" [(ngModel)]="woreda.WoredaName" #WoredaName ="ngModel">
+            </mat-form-field>
+            <div *ngIf="ZoneId.invalid && (ZoneId.dirty || ZoneId.touched)"
+            class="alert alert-danger">
+            Region name is required.
+           </div>
+            <div *ngIf="WoredaName.invalid && (WoredaName.dirty || WoredaName.touched)"
+            class="alert alert-danger">
+            Woreda name is required.
+           </div>
+            <br>
+            <button [disabled]="!WoredaName.valid"  mat-raised-button color="primary" (click)="saveData()"> Create woreda</button>&nbsp;
+            <div class="updating"*ngIf="editing==true">
+              <h3 color="primary" class="mat-title font-weight-bold text-center">
+                Update woreda</h3>
+            <hr> 
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Zone Name</mat-label>
+                <mat-select [(ngModel)]="Eworeda.zoneId" #ZoneId ="ngModel">
+                    <mat-option *ngFor="let zone of ZoneList" [value]="zone.zoneId">
+                    {{zone.zoneName}}
+                    </mat-option>
+                </mat-select>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input required type="text" required matInput name="ZoneName" [(ngModel)]="Eworeda.woredaName" [value] ='Eworeda.woredaName'>
+                </mat-form-field>
+                <br>
+                <button  mat-raised-button color="primary" (click)="updateWoreda(Eworeda)"> Update woreda</button>&nbsp;
+                <button  mat-raised-button color="warn" (click)="cancelEditing()"> Cancel updating</button>&nbsp;
+            </div>
+          </div>
+<div class="col-md-6">
+    <h3 color="primary" class="mat-title font-weight-bold text-center">
+     Woreda List</h3>
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <!-- Progress Column -->
+          <ng-container matColumnDef="ZoneId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Id </th>
+            <td mat-cell *matCellDef="let row"> {{row.zoneId}} </td>
+          </ng-container>
+          <ng-container matColumnDef="WoredaName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Woreda Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.woredaName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Edit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+            <td mat-cell *matCellDef="let row"> <button color="accent" mat-raised-button (click)="editingWoreda(row)">Edit</button> </td>
+          </ng-container>
+          <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+            <td mat-cell *matCellDef="let row"><button color="warn" mat-raised-button (click)="deleteWoreda(row.zoneId)">Delete</button>  </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+      
+</div>
+    </div>
+</div>

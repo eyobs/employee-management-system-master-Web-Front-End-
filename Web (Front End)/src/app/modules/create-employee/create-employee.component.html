@@ -1,0 +1,194 @@
+<h3 color="primary" class="mat-title font-weight-bold text-center heading">
+    Create new employee</h3>
+<hr>
+<div class="row container">
+    <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Unit Id" [(ngModel)]="employee.unitId">
+        </mat-form-field>
+       
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Employee first name" [(ngModel)]="employee.firstName" #firstName="ngModel">
+        </mat-form-field>
+        
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Employee father name" [(ngModel)]="employee.fatherName">
+        </mat-form-field>
+       
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Employee grand father" [(ngModel)]="employee.grandName">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Gender</mat-label>
+            <mat-select  [(ngModel)]="employee.sex">
+                <mat-option value='1'>Female</mat-option>
+                <mat-option value='0'>Male</mat-option>
+            </mat-select>
+            </mat-form-field>
+
+         <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Religion</mat-label>
+    <mat-select [(ngModel)]="employee.religion">
+        <mat-option *ngFor="let reli of ReligionList" [value]="reli.religionId">
+        {{reli.religionName}}
+        </mat-option>
+    </mat-select>
+    </mat-form-field> 
+
+        <mat-form-field appearance="fill">
+            <mat-label>Birthdate</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="employee.birthDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          
+       
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Employee birth place" [(ngModel)]="employee.birthPlace">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Meritial status Id</mat-label>
+        <mat-select [(ngModel)]="employee.meritialStatusId">
+            <mat-option value='1'>Single</mat-option>
+            <mat-option value='2'>Merried</mat-option>
+            <mat-option value='3'>Divorced</mat-option>
+            <mat-option value='4'>Widewed</mat-option>
+        </mat-select>
+        </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Nationality</mat-label>
+            <mat-select [(ngModel)]="employee.nationalityId">
+                <mat-option *ngFor="let nation of NationList" [value]="nation.nationalityId">
+                {{nation.nationalityName}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field> 
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Region</mat-label>
+                <mat-select [(ngModel)]="employee.regionId" #firstName1="ngModel"(selectionChange)="zoneSelecting($event.value)" >
+                    <mat-option *ngFor="let rego of RegionList" [value]="rego.regionId">
+                    {{rego.regionName}}
+                    </mat-option>
+                </mat-select>
+                </mat-form-field>       
+     
+    </div>
+
+
+    <div class="col-md-4">
+            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Zone</mat-label>
+            <mat-select [(ngModel)]="employee.zoneId" #firstName2="ngModel"(selectionChange)="woredaSelecting($event.value)">
+                <mat-option *ngFor="let zon of finalZoneList" [value]="zon.zoneId">
+                {{zon.zoneName}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>woreda</mat-label>
+            <mat-select [(ngModel)]="employee.woredaId" #firstName3="ngModel"(selectionChange)="kebelleSelecting($event.value)">
+                <mat-option *ngFor="let wer of finalWoredaList" [value]="wer.woredaId">
+                {{wer.woredaName}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>kebele</mat-label>
+            <mat-select #firstName4="ngModel" [(ngModel)]="employee.kebeleId">
+                <mat-option *ngFor="let keb of finalKebelleList" [value]="keb.kebelleId">
+                {{keb.kebelleName}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input required type="email" required matInput placeholder="Email" [(ngModel)]="employee.email">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Mobile number" [(ngModel)]="employee.telMobile">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Home telephone" [(ngModel)]="employee.telHome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Tel off direct 1" [(ngModel)]="employee.telOffDirect1">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Tel off direct 2" [(ngModel)]="employee.telOffDirect2">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Tel off Ext1" [(ngModel)]="employee.telOffExt1">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input required type="text" required matInput placeholder="Room no" [(ngModel)]="employee.roomNo">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Education Level</mat-label>
+            <mat-select [(ngModel)]="employee.educationLevel">
+                <mat-option *ngFor="let level of EducationalLevelList" [value]="level.educationLevelId">
+                {{level.educationLevelName}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field> 
+    
+        </div>
+        <div class="col-md-4"> 
+            <mat-form-field class="example-full-width">
+                <input required type="text" required matInput placeholder="Educational field" [(ngModel)]="employee.educationField">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Position</mat-label>
+                <mat-select [(ngModel)]="employee.positionId">
+                    <mat-option *ngFor="let pos of PositionList" [value]="pos.positionId">
+                    {{pos.positionName}}
+                    </mat-option>
+                </mat-select>
+                </mat-form-field> 
+
+            <mat-form-field class="example-full-width">
+                <input required type="text" required matInput placeholder="Salary" [(ngModel)]="employee.salary">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input required type="date" required matInput placeholder="Employment date" [(ngModel)]="employee.empDate">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input required type="text" required matInput placeholder="Employment letter" [(ngModel)]="employee.empLetter">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input required type="text" required matInput placeholder="Employment status" [(ngModel)]="employee.empStatus">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input required type="text" required matInput placeholder="Current status" [(ngModel)]="employee.currentStatus">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input required type="date" required matInput placeholder="Termination date" [(ngModel)]="employee.terminationDate">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input required type="text" required matInput placeholder="Termination reason" [(ngModel)]="employee.terminationReason">
+            </mat-form-field>
+            <!-- <mat-form-field class="example-full-width">
+                <input >
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Termination letter</mat-label>
+                <textarea required type="text" required matInput placeholder="Termination letter" [(ngModel)]="employee.terminationLetter"></textarea>
+              </mat-form-field>
+
+            <!-- <mat-form-field class="example-full-width">
+                <input required type="file" required matInput placeholder="Photo" [(ngModel)]="employee.photo">
+            </mat-form-field> -->
+        </div>
+        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+        class="alert alert-danger">
+        Please fill all required fields
+       </div>
+ <button [disabled]="!firstName.valid"  mat-raised-button color="primary" (click)="saveData(employee)"> Create new employee</button>&nbsp;
+</div>
+  
+    
